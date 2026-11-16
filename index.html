@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101614">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="emilanos">
+<title>emilanos podcast</title>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="ikoner/ikon-180.png">
+<link rel="icon" href="ikoner/ikon-192.png">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="baggrund"></div>
+
+<!-- Login -->
+<main id="login" class="skjult">
+  <div class="login-kort">
+    <div class="logo">e</div>
+    <h1>emilanos podcast</h1>
+    <p class="svag">Kun for Emil.</p>
+    <form id="login-form" autocomplete="on">
+      <input id="login-email" type="email" name="email" autocomplete="username" placeholder="Mail" required>
+      <input id="login-pw" type="password" name="password" autocomplete="current-password" placeholder="Password" required>
+      <button type="submit" class="knap-primaer">Log ind</button>
+      <p id="login-fejl" class="fejl"></p>
+    </form>
+  </div>
+</main>
+
+<!-- Appen -->
+<div id="app" class="skjult">
+  <header id="top">
+    <button id="modul-knap" class="modul-knap" aria-label="Skift modul">
+      <span class="logo lille">e</span>
+      <span><small>emilanos</small><b id="modul-navn">Analytics</b></span>
+      <svg viewBox="0 0 24 24" width="16" height="16"><path d="m7 10 5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <div id="mac" class="mac"><i></i><span>Macen</span></div>
+  </header>
+  <div id="ptr"><div class="ptr-ring"></div><span>Træk for at hente</span></div>
+  <main id="indhold"></main>
+  <nav id="faner"></nav>
+</div>
+
+<!-- Ark (modulvælger, links osv.) -->
+<div id="ark-bag" class="skjult"></div>
+<section id="ark" class="skjult" role="dialog"></section>
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

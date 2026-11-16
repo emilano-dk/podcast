@@ -1,0 +1,13 @@
+{
+  "name": "emilanos podcast",
+  "short_name": "emilanos",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101614",
+  "theme_color": "#101614",
+  "icons": [
+    {"src": "ikoner/ikon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "ikoner/ikon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}

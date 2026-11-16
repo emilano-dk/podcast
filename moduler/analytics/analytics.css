@@ -1,0 +1,112 @@
+.hilsen{margin:6px 2px 14px}
+.hilsen h1{font:400 32px/1.05 var(--serif);margin:0}
+.hilsen p{margin:4px 0 0;color:var(--svag);font-size:13.5px}
+
+/* Hent */
+.hent{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 12px 12px 16px;margin-bottom:12px;
+  border-radius:20px;background:var(--kort);border:1px solid var(--kant);transition:border-color .3s}
+.hent b{display:block;font-size:14px}
+.hent small{display:block;color:var(--svag);font-size:12.5px;margin-top:1px}
+.hent.ok{border-color:rgba(214,238,110,.45)}
+.hent.ok small{color:var(--lime)}
+.hent.fejl small{color:var(--roed)}
+.hent-knap{flex:none;width:46px;height:46px;border-radius:15px;display:grid;place-items:center;color:#101614;
+  background:linear-gradient(140deg,var(--lime),var(--lime2));box-shadow:0 8px 22px -10px rgba(151,190,28,.8);transition:transform .15s}
+.hent-knap:active{transform:scale(.92)}
+.hent-knap svg{width:22px;height:22px}
+.hent.koerer .hent-knap{background:var(--kort2);color:var(--lime);box-shadow:none}
+.hent.koerer .hent-knap svg{animation:drej 1s linear infinite}
+
+/* Helt-kort */
+.helt{padding:18px 18px 16px;background:linear-gradient(155deg,rgba(214,203,182,.12),rgba(94,130,115,.10) 55%,var(--kort))}
+.kaempe{font:400 58px/1 var(--serif);letter-spacing:-.01em;margin:2px 0 10px}
+.under{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;margin-bottom:14px}
+.pbar{display:flex;gap:3px;height:9px;border-radius:9px;overflow:hidden;margin-bottom:9px}
+.pbar i{min-width:3px}
+.pleg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--svag)}
+.pleg span{display:inline-flex;align-items:center;gap:6px}
+.pleg i{width:8px;height:8px;border-radius:3px}
+.pleg b{color:var(--tekst);font-weight:650}
+
+.fliser{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:2px}
+.fliser .kort{margin:0}
+.flise{padding:14px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:118px}
+.flise .eyebrow{margin:0;font-size:10.5px}
+.flise .stort{font:400 31px/1 var(--serif)}
+.flise small{color:var(--svag);font-size:11.5px;margin-top:auto}
+
+/* Episode-kort */
+.ep-kort{padding:0}
+.ep-bill{position:relative;background:#0b100e}
+.ep-bill img{display:block;width:100%;height:auto}
+.live{position:absolute;right:12px;top:12px;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;
+  padding:6px 11px;border-radius:99px;background:rgba(16,22,20,.72);color:#F4F1EA;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.live i{width:7px;height:7px;border-radius:50%;background:#D6EE6E;animation:puls 1.6s infinite}
+.live.kommer i{background:#D6CBB6;animation:none}
+.ep-top{padding:14px 16px 4px}
+.ep-top small{color:var(--svag);font-size:12px;font-weight:600}
+.ep-top h2{font:400 26px/1.1 var(--serif);margin:3px 0 0}
+.ep-tal{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:10px 16px 14px}
+.ep-tal div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ep-tal b{font-size:18px;font-weight:700}
+.ep-tal span{font-size:10.5px;color:var(--svag);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ep-tal em{font-style:normal;color:var(--lime);font-weight:700}
+.ep-ekstra{margin:0 16px 12px;padding-top:10px;border-top:1px solid var(--kant);display:grid;gap:8px}
+.ep-ekstra div{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}
+.ep-ekstra>div>span{color:var(--svag)}
+.ep-ekstra b{font-weight:650;display:inline-flex;align-items:center;gap:6px}
+.ep-kort .pbar,.ep-kort .pleg{margin-left:16px;margin-right:16px}
+.ep-kort .pleg{margin-bottom:16px}
+
+.raekke-kort{display:flex;align-items:center;gap:12px;padding:10px}
+.raekke-kort img,.raekke-kort .tomt{width:84px;height:47px;object-fit:cover;border-radius:10px;flex:none;background:var(--kort2)}
+.raekke-kort b{display:block;font-size:14.5px}
+.raekke-kort small{color:var(--svag);font-size:12px}
+
+.graf{padding:14px 14px 10px}
+.soejler,.linje{display:block;width:100%;height:80px}
+.akse{display:flex;justify-content:space-between;font-size:11px;color:var(--svagere);margin-top:6px}
+
+/* Karrusel */
+.karrusel{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px;scrollbar-width:none}
+.karrusel::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center}
+.slide .kort{margin:0}
+.prikker{display:flex;justify-content:center;gap:6px;margin:12px 0 4px}
+.prikker i{width:6px;height:6px;border-radius:9px;background:var(--kant);transition:all .25s}
+.prikker i.aktiv{width:20px;background:var(--sand)}
+
+/* Klip */
+.segment{display:flex;padding:4px;border-radius:16px;background:var(--kort);border:1px solid var(--kant);margin:2px 0 10px}
+.segment button{flex:1;padding:10px;border-radius:12px;font-size:13.5px;font-weight:650;color:var(--svag)}
+.segment button.aktiv{background:var(--tekst);color:var(--bg)}
+.note{font-size:12px;color:var(--svag);margin:0 4px 10px}
+.klip{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border-radius:18px;
+  background:var(--kort);border:1px solid var(--kant)}
+.klip:active{background:var(--kort2)}
+.klip .nr{flex:none;width:24px;font:400 24px/1 var(--serif);color:var(--sand);text-align:center}
+.klip-midt{flex:1;min-width:0}
+.klip-midt b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13.5px;font-weight:600;line-height:1.3}
+.klip-midt small{display:block;color:var(--svag);font-size:11.5px;margin-top:3px}
+.klip-bar{display:block;height:3px;border-radius:3px;background:var(--kant);margin-top:7px;overflow:hidden}
+.klip-bar i{display:block;height:100%;border-radius:3px;background:linear-gradient(90deg,var(--sand),var(--lime))}
+.klip-tal{flex:none;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.klip-tal b{font-size:16px}
+.klip-tal small{font-size:11px;color:var(--svag)}
+.klip-tal em{font-style:normal;font-size:11.5px;font-weight:700;color:#101614;background:var(--lime);padding:2px 7px;border-radius:99px}
+.tom-tekst{color:var(--svag);font-size:14px;text-align:center;padding:26px 16px}
+
+/* Spotify-episoder */
+.ep-raekke{display:flex;align-items:center;gap:12px;padding:10px 14px 10px 10px}
+.ep-raekke.daempet{opacity:.55}
+.ep-raekke img,.ep-raekke .tomt{width:72px;height:40px;object-fit:cover;border-radius:9px;flex:none;background:var(--kort2)}
+.ep-raekke-midt{flex:1;min-width:0}
+.ep-raekke-midt small{display:block;color:var(--svag);font-size:11.5px}
+.ep-raekke-midt b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini .soejler{height:22px;margin-top:5px}
+.ep-raekke-tal{text-align:right;flex:none}
+.ep-raekke-tal b{display:block;font-size:18px}
+.ep-raekke-tal small{display:block;font-size:11px;color:var(--svag)}
+.ep-raekke-tal .u1{color:var(--sand);margin-top:2px}
+
+.fod{text-align:center;font-size:11.5px;color:var(--svagere);margin:22px 0 4px}
