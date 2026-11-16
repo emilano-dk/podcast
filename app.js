@@ -194,7 +194,14 @@ document.addEventListener("visibilitychange", () => {
   }
 });
 
-const { data: { session } } = await sb.auth.getSession();
+// Bliv logget ind: bed browseren om at gemme data permanent, og prøv igen, hvis nettet ikke var
+// klar, da ikonet blev åbnet (så ville fornyelsen af login fejle, og login-skærmen ville vises).
+navigator.storage?.persist?.().catch(() => {});
+let { data: { session } } = await sb.auth.getSession();
+for (let i = 0; !session && i < 3 && localStorage.getItem("emilanos-mobil"); i++) {
+  await new Promise((r) => setTimeout(r, 1200));
+  ({ data: { session } } = await sb.auth.getSession());
+}
 session ? start() : visLogin();
 
 if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js");
