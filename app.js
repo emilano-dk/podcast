@@ -128,14 +128,25 @@ async function visModul(id) {
   $("#faner").innerHTML = "";
   paaTraek = null;
   aktivt?.afmonter?.();
-  const mod = await m.hent();
-  aktivt = await mod.mount({
+  try {
+    const mod = await m.hent();
+    aktivt = await mod.mount({
     sb, indhold: $("#indhold"), faner: $("#faner"), esc, klok, toast, ark, lukArk,
     snapshot: () => snapshot(m.id), gemtSnapshot: () => gemtSnapshot(m.id),
     opgave: (handling, data, onStatus) => opgave(m.id, handling, data, onStatus),
     macVaagen, opdaterMac, paaTraek: (fn) => { paaTraek = fn; },
-  });
+    });
+  } catch (e) {
+    visFejl(`${m.navn} kunne ikke starte: ${e?.message || e}`);
+  }
 }
+
+// Fejl vises på skærmen (en telefon har ingen konsol).
+function visFejl(tekst) {
+  $("#indhold").insertAdjacentHTML("afterbegin", `<div class="kort" style="border-color:var(--roed);color:var(--roed);font-size:13px">${esc(tekst)}</div>`);
+}
+window.addEventListener("error", (e) => visFejl(e.message || "Ukendt fejl"));
+window.addEventListener("unhandledrejection", (e) => visFejl(String(e.reason?.message || e.reason)));
 
 $("#modul-knap").addEventListener("click", () => {
   const aktiv = gem.hent("modul") || MODULER[0].id;

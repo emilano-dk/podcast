@@ -301,7 +301,7 @@ export async function mount(ctx) {
       const ny = await ctx.snapshot();
       if (ny && (!snap || ny.laget !== snap.laget || blink)) { snap = ny; tegn(); }
     } catch (e) {
-      if (!snap) ctx.toast("Kunne ikke hente tal: " + e.message);
+      if (!snap) ctx.indhold.insertAdjacentHTML("beforeend", `<div class="kort tom-tekst" style="color:var(--roed)">Kunne ikke hente tal: ${esc(e.message || String(e))}</div>`);
     }
   }
 
