@@ -1,6 +1,6 @@
 {
-  "name": "emilanos podcast",
-  "short_name": "emilanos",
+  "name": "Podcast HQ",
+  "short_name": "Podcast HQ",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
