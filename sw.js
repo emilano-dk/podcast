@@ -15,3 +15,19 @@ self.addEventListener("fetch", (e) => {
     return r;
   }).catch(() => caches.match(e.request)));
 });
+
+// Morgenbesked fra Supabase-funktionen morgenbesked: {titel, tekst, url}.
+self.addEventListener("push", (e) => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch { d = { tekst: e.data?.text() }; }
+  e.waitUntil(self.registration.showNotification(d.titel || "emilanos", {
+    body: d.tekst || "", icon: "ikoner/ikon-192.png", badge: "ikoner/ikon-192.png", data: { url: d.url || "./" },
+  }));
+});
+self.addEventListener("notificationclick", (e) => {
+  e.notification.close();
+  e.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((cs) => {
+    const c = cs.find((x) => x.url.startsWith(self.registration.scope));
+    return c ? c.focus() : self.clients.openWindow(e.notification.data?.url || "./");
+  }));
+});

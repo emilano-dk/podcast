@@ -89,6 +89,7 @@ input:focus{border-color:var(--sand)}
 @keyframes op{from{transform:translateY(100%)}}
 .ark-raekke{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:16px;background:var(--kort);border:1px solid var(--kant);margin-bottom:8px;width:100%;text-align:left}
 .ark-raekke.aktiv{border-color:var(--sand)}
+.ark-raekke:disabled{opacity:.6}
 .ark-raekke .ik{font-size:22px}
 .ark-raekke b{display:block}
 .ark-raekke small{color:var(--svag)}

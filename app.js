@@ -148,15 +148,62 @@ function visFejl(tekst) {
 window.addEventListener("error", (e) => visFejl(e.message || "Ukendt fejl"));
 window.addEventListener("unhandledrejection", (e) => visFejl(String(e.reason?.message || e.reason)));
 
-$("#modul-knap").addEventListener("click", () => {
+// ── Morgenbesked (push kl. 08) ───────────────────────────────
+// Sendes af Supabase-funktionen morgenbesked, også når Macen sover. På iPhone virker push kun,
+// når appen er lagt på hjemmeskærmen (iOS 16.4+), og tilladelsen skal bedes om fra et tryk.
+const hjemmeskaerm = () => navigator.standalone || matchMedia("(display-mode: standalone)").matches;
+const pushMulig = () => "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+async function pushAbonnement() {
+  if (!pushMulig()) return null;
+  const reg = await navigator.serviceWorker.getRegistration();
+  return reg ? reg.pushManager.getSubscription() : null;
+}
+function b64tilBytes(b64) {
+  const s = atob((b64 + "=".repeat((4 - (b64.length % 4)) % 4)).replace(/-/g, "+").replace(/_/g, "/"));
+  return Uint8Array.from(s, (c) => c.charCodeAt(0));
+}
+async function slaaPushTil() {
+  if (await Notification.requestPermission() !== "granted") throw new Error("Notifikationer er ikke tilladt. Slå dem til under Indstillinger → Notifikationer → emilanos.");
+  const { data: noegle, error } = await sb.rpc("push_offentlig_noegle");
+  if (error || !noegle) throw new Error("Kunne ikke hente nøglen fra Supabase.");
+  const reg = await navigator.serviceWorker.ready;
+  const abon = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64tilBytes(noegle) });
+  const j = abon.toJSON();
+  const { error: e2 } = await sb.from("push_abonnement").upsert(
+    { endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth }, { onConflict: "endpoint" });
+  if (e2) throw new Error(e2.message);
+}
+async function slaaPushFra(abon) {
+  await sb.from("push_abonnement").delete().eq("endpoint", abon.endpoint);
+  await abon.unsubscribe();
+}
+async function pushRaekke() {
+  const abon = await pushAbonnement().catch(() => null);
+  const tekst = !pushMulig() || !hjemmeskaerm() ? "Læg appen på hjemmeskærmen først"
+    : abon ? "Til · tryk for at slå fra" : "Fra · tryk for at slå til";
+  return `<button class="ark-raekke ${abon ? "aktiv" : ""}" id="push" ${!pushMulig() || !hjemmeskaerm() ? "disabled" : ""}>
+    <span class="ik">🔔</span><span><b>Morgenbesked kl. 08</b><small>${tekst}</small></span></button>`;
+}
+
+$("#modul-knap").addEventListener("click", async () => {
   const aktiv = gem.hent("modul") || MODULER[0].id;
+  const push = await pushRaekke();
   const a = ark(`<h3>Moduler</h3>
     ${MODULER.map((m) => `<button class="ark-raekke ${m.id === aktiv ? "aktiv" : ""}" data-modul="${m.id}">
       <span class="ik">${m.ikon}</span><span><b>${esc(m.navn)}</b><small>${esc(m.tekst)}</small></span></button>`).join("")}
     ${KOMMER.map((m) => `<div class="ark-raekke dæmpet"><span class="ik">${m.ikon}</span><span><b>${esc(m.navn)}</b><small>${esc(m.tekst)}</small></span></div>`).join("")}
+    ${push}
     <button class="ark-raekke" id="log-ud"><span class="ik">↩︎</span><span><b>Log ud</b><small>På denne telefon</small></span></button>`);
   a.querySelectorAll("[data-modul]").forEach((b) => b.addEventListener("click", () => { lukArk(); visModul(b.dataset.modul); }));
   a.querySelector("#log-ud").addEventListener("click", async () => { lukArk(); await sb.auth.signOut(); visLogin(); });
+  a.querySelector("#push")?.addEventListener("click", async () => {
+    lukArk();
+    try {
+      const abon = await pushAbonnement();
+      if (abon) { await slaaPushFra(abon); toast("Morgenbesked slået fra"); }
+      else { await slaaPushTil(); toast("✓ Du får en besked kl. 08"); }
+    } catch (e) { visFejl(e?.message || String(e)); }
+  });
 });
 
 // ── Login ───────────────────────────────────────────────────
