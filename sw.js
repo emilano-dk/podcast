@@ -21,7 +21,7 @@ self.addEventListener("push", (e) => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; } catch { d = { tekst: e.data?.text() }; }
   e.waitUntil(self.registration.showNotification(d.titel || "emilanos", {
-    body: d.tekst || "", icon: "ikoner/ikon-192.png", badge: "ikoner/ikon-192.png", data: { url: d.url || "./" },
+    body: d.tekst || "", icon: "ikoner/ikon-hq-192.png", badge: "ikoner/ikon-hq-192.png", data: { url: d.url || "./" },
   }));
 });
 self.addEventListener("notificationclick", (e) => {
